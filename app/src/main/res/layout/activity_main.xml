@@ -1,4 +1,4 @@
-<?xml version="2.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -41,10 +41,22 @@
             android:id="@+id/btnCE"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
-            android:layout_weight="2"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
             android:text="CE"
+            android:textColor="#1B1B1B"
+            android:textSize="16sp"
+            app:cornerRadius="18dp" />
+
+        <Button
+            android:id="@+id/btn1SobreX"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="1/x"
             android:textColor="#1B1B1B"
             android:textSize="16sp"
             app:cornerRadius="18dp" />
@@ -53,8 +65,8 @@
             android:id="@+id/btnMRC"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
-            android:layout_weight="2"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
             android:text="MR"
             android:textColor="#1B1B1B"
@@ -65,8 +77,8 @@
             android:id="@+id/btnMMenos"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
-            android:layout_weight="2"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
             android:text="M-"
             android:textColor="#1B1B1B"
@@ -77,8 +89,8 @@
             android:id="@+id/btnMMais"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
-            android:layout_weight="2"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
             android:text="M+"
             android:textColor="#1B1B1B"
@@ -91,13 +103,13 @@
         android:layout_weight="0">
 
         <Button
-            android:id="@+id/btnSin"
+            android:id="@+id/btnAoQuadrado"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
-            android:text="sin"
+            android:text="x²"
             android:textColor="#442178"
             android:textSize="14sp"
             app:cornerRadius="18dp" />
@@ -106,7 +118,7 @@
             android:id="@+id/btnSin"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
             android:text="sin"
@@ -118,7 +130,7 @@
             android:id="@+id/btnCos"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
             android:text="cos"
@@ -130,7 +142,7 @@
             android:id="@+id/btnTan"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
             android:text="tan"
@@ -142,7 +154,7 @@
             android:id="@+id/btnASin"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
             android:text="asin"
@@ -157,13 +169,13 @@
         android:layout_weight="0">
 
         <Button
-            android:id="@+id/btnACos"
+            android:id="@+id/btnRaizQuadrada"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
-            android:text="acos"
+            android:text="√x"
             android:textColor="#442178"
             android:textSize="14sp"
             app:cornerRadius="18dp" />
@@ -172,7 +184,7 @@
             android:id="@+id/btnACos"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
             android:text="acos"
@@ -184,7 +196,7 @@
             android:id="@+id/btnATan"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
             android:text="atan"
@@ -196,7 +208,7 @@
             android:id="@+id/btnDegRad"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
             android:text="DEG"
@@ -208,7 +220,7 @@
             android:id="@+id/btnPi"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
             android:text="π"
@@ -222,58 +234,69 @@
         android:layout_weight="2">
 
         <Button
-            android:id="@+id/btn7"
+            android:id="@+id/btnAbreParenteses"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
-            android:text="7"
-            android:textSize="20sp"
+            android:text="("
+            android:textSize="18sp"
+            app:cornerRadius="18dp" />
+
+        <Button
+            android:id="@+id/btnPorcentagem"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:backgroundTint="#9A8FE7"
+            android:text="%"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn7"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="7"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn8"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="8"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn9"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="9"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btnDividir"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="/"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
     </TableRow>
     <TableRow
@@ -282,58 +305,69 @@
         android:layout_weight="2">
 
         <Button
-            android:id="@+id/btn7"
+            android:id="@+id/btnFechaParenteses"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
-            android:text="7"
-            android:textSize="20sp"
+            android:text=")"
+            android:textSize="18sp"
+            app:cornerRadius="18dp" />
+
+        <Button
+            android:id="@+id/btnFatorial"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:backgroundTint="#9A8FE7"
+            android:text="n!"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="4"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn5"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="5"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn6"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="6"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btnMultiplicar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="X"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
     </TableRow>
     <TableRow
@@ -342,58 +376,69 @@
         android:layout_weight="2">
 
         <Button
-            android:id="@+id/btn7"
+            android:id="@+id/btnIn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
-            android:text="7"
-            android:textSize="20sp"
+            android:text="In"
+            android:textSize="18sp"
+            app:cornerRadius="18dp" />
+
+        <Button
+            android:id="@+id/btnXElevadoY"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:backgroundTint="#9A8FE7"
+            android:text="xʸ"
+            android:textSize="19sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="1"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="2"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="3"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btnSubtrair"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="-"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
     </TableRow>
     <TableRow
@@ -402,58 +447,70 @@
         android:layout_weight="2">
 
         <Button
-            android:id="@+id/btn7"
+            android:id="@+id/btnMaisOuMenos"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
-            android:text="7"
-            android:textSize="20sp"
+            android:text="±"
+            android:textSize="18sp"
+            app:cornerRadius="18dp" />
+
+        <Button
+            android:id="@+id/btnEuler"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:backgroundTint="#9A8FE7"
+            android:text="e"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btn0"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="0"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btnPonto"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="."
-            android:textSize="20sp"
-            app:cornerRadius="18dp" />
-
-        <Button
-            android:id="@+id/btnIgual"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="2dp"
-            android:layout_weight="2"
-            android:backgroundTint="#9A8FE7"
-            android:text="="
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
 
         <Button
             android:id="@+id/btnAdicionar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="2dp"
+            android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
             android:text="+"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:cornerRadius="18dp" />
+
+        <Button
+            android:id="@+id/btnIgual"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:layout_weight="2"
+            android:backgroundTint="#9A8FE7"
+            android:text="="
+            android:textSize="18sp"
+            app:cornerRadius="18dp" />
+
     </TableRow>
 </TableLayout>

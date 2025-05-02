@@ -30,6 +30,27 @@ class MainActivity : AppCompatActivity() {
         val btnMMais = findViewById<Button>(R.id.btnMMais)
         val btnMMenos = findViewById<Button>(R.id.btnMMenos)
         val btnMRC = findViewById<Button>(R.id.btnMRC)
+        val preview = findViewById<TextView>(R.id.preview)
+        val btn1SobreX = findViewById<Button>(R.id.btn1SobreX)
+        val btnAoQuadrado = findViewById<Button>(R.id.btnAoQuadrado)
+        val btnSin = findViewById<Button>(R.id.btnSin)
+        val btnCos = findViewById<Button>(R.id.btnCos)
+        val btnTan = findViewById<Button>(R.id.btnTan)
+        val btnASin = findViewById<Button>(R.id.btnASin)
+        val btnRaizQuadrada = findViewById<Button>(R.id.btnRaizQuadrada)
+        val btnACos = findViewById<Button>(R.id.btnACos)
+        val btnATan = findViewById<Button>(R.id.btnATan)
+        val btnDegRad = findViewById<Button>(R.id.btnDegRad)
+        val btnPi = findViewById<Button>(R.id.btnPi)
+        val btnAbreParenteses = findViewById<Button>(R.id.btnAbreParenteses)
+        val btnFechaParenteses = findViewById<Button>(R.id.btnFechaParenteses)
+        val btnPorcentagem = findViewById<Button>(R.id.btnPorcentagem)
+        val btnFatorial = findViewById<Button>(R.id.btnFatorial)
+        val btnIn = findViewById<Button>(R.id.btnIn)
+        val btnXElevadoY = findViewById<Button>(R.id.btnXElevadoY)
+        val btnMaisOuMenos = findViewById<Button>(R.id.btnMaisOuMenos)
+        val btnEuler = findViewById<Button>(R.id.btnEuler)
+
 
         val btn0 = findViewById<Button>(R.id.btn0)
         val btn1 = findViewById<Button>(R.id.btn1)
@@ -138,44 +159,91 @@ class MainActivity : AppCompatActivity() {
             isResultado = false
             operacao = 0
         }
+
+        btn1SobreX.setOnClickListener { }
+
+        btnAoQuadrado.setOnClickListener { }
+
+        btnSin.setOnClickListener { }
+
+        btnCos.setOnClickListener { }
+
+        btnTan.setOnClickListener { }
+
+        btnASin.setOnClickListener { }
+
+        btnRaizQuadrada.setOnClickListener { }
+
+        btnACos.setOnClickListener { }
+
+        btnATan.setOnClickListener { }
+
+        btnDegRad.setOnClickListener { }
+
+        btnPi.setOnClickListener { }
+
+        btnAbreParenteses.setOnClickListener { }
+
+        btnFechaParenteses.setOnClickListener { }
+
+        btnPorcentagem.setOnClickListener { }
+
+        btnFatorial.setOnClickListener { }
+
+        btnIn.setOnClickListener { }
+
+        btnXElevadoY.setOnClickListener { }
+
+        btnMaisOuMenos.setOnClickListener { }
+
+        btnEuler.setOnClickListener { }
+
         btnPonto.setOnClickListener {
             if (!display.text.toString().contains(".")) {
                 display.setText(display.text.toString().plus("."))
             }
         }
+
         btnMRC.setOnClickListener {
             display.setText(MR.toString())
         }
+
         btnMMais.setOnClickListener {
             MR += display.text.toString().toDouble()
             display.setText("0")
             isResultado = true
         }
+
         btnMMenos.setOnClickListener {
             MR -= display.text.toString().toDouble()
             display.setText("0")
             isResultado = true
         }
+
         btnAdicionar.setOnClickListener {
             temp1 = display.text.toString().toDouble()
             operacao = 1
             display.setText("0")
         }
+
         btnSubtrair.setOnClickListener {
             temp1 = display.text.toString().toDouble()
             operacao = 2
             display.setText("0")
         }
+
         btnMultiplicar.setOnClickListener {
             temp1 = display.text.toString().toDouble()
             operacao = 3
             display.setText("0")
         }
+
         btnDividir.setOnClickListener {
             temp1 = display.text.toString().toDouble()
             operacao = 4
             display.setText("0")
         }
+
         btnIgual.setOnClickListener {
             temp2 = display.text.toString().toDouble()
             when(operacao) {
@@ -187,5 +255,6 @@ class MainActivity : AppCompatActivity() {
             display.setText(resultado.toString())
             isResultado = true
         }
+
     }
 }
