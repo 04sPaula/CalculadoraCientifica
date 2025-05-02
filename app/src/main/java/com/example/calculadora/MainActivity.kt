@@ -25,12 +25,12 @@ class MainActivity : AppCompatActivity() {
         var isResultado = false
         var operacao = 0
 
+        val preview = findViewById<TextView>(R.id.preview)
         val display = findViewById<TextView>(R.id.display)
         val btnCE = findViewById<TextView>(R.id.btnCE)
         val btnMMais = findViewById<Button>(R.id.btnMMais)
         val btnMMenos = findViewById<Button>(R.id.btnMMenos)
         val btnMRC = findViewById<Button>(R.id.btnMRC)
-        val preview = findViewById<TextView>(R.id.preview)
         val btn1SobreX = findViewById<Button>(R.id.btn1SobreX)
         val btnAoQuadrado = findViewById<Button>(R.id.btnAoQuadrado)
         val btnSin = findViewById<Button>(R.id.btnSin)
@@ -152,6 +152,7 @@ class MainActivity : AppCompatActivity() {
 
         btnCE.setOnClickListener {
             display.setText("0")
+            preview.setText("0")
             MR = 0.0
             temp1 = 0.0
             temp2 = 0.0
@@ -162,7 +163,13 @@ class MainActivity : AppCompatActivity() {
 
         btn1SobreX.setOnClickListener { }
 
-        btnAoQuadrado.setOnClickListener { }
+        btnAoQuadrado.setOnClickListener {
+            if (!display.text.toString().contains("²")) {
+                resultado = display.text.toString().toDouble() * display.text.toString().toDouble()
+                display.setText(display.text.toString().plus("²"))
+                preview.setText(resultado.toString())
+            }
+        }
 
         btnSin.setOnClickListener { }
 
@@ -182,13 +189,45 @@ class MainActivity : AppCompatActivity() {
 
         btnPi.setOnClickListener { }
 
-        btnAbreParenteses.setOnClickListener { }
+        btnAbreParenteses.setOnClickListener {
+            if(!display.text.toString().equals("0")) {
+                display.setText(display.text.toString().plus("("))
+            } else {
+                display.setText("(")
+            }
+        }
 
-        btnFechaParenteses.setOnClickListener { }
+        btnFechaParenteses.setOnClickListener {
+            if(!display.text.toString().equals("0")) {
+                display.setText(display.text.toString().plus(")"))
+            } else {
+                display.setText(")")
+            }
+        }
 
-        btnPorcentagem.setOnClickListener { }
+        btnPorcentagem.setOnClickListener {
+            if (display.text.toString().toDoubleOrNull() != null) {
+                val percentual = display.text.toString().toDoubleOrNull()?.div(100)
+                preview.setText(percentual.toString())
+            } else {
+                preview.setText("Erro")
+            }
+        }
 
-        btnFatorial.setOnClickListener { }
+        btnFatorial.setOnClickListener {
+            if (!display.text.toString().contains("!")) {
+                try {
+                    val numero = display.text.toString().toInt()
+                    var fatorial = 1L
+                    for (i in 1..numero) {
+                        fatorial *= i
+                    }
+                    preview.setText(fatorial.toString())
+                } catch (e: NumberFormatException) {
+                    display.setText("Erro")
+                }
+            }
+        }
 
         btnIn.setOnClickListener { }
 
