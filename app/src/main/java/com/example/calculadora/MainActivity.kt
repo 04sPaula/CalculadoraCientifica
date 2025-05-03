@@ -207,8 +207,12 @@ class MainActivity : AppCompatActivity() {
 
         btnPorcentagem.setOnClickListener {
             if (display.text.toString().toDoubleOrNull() != null) {
-                val percentual = display.text.toString().toDoubleOrNull()?.div(100)
-                preview.setText(percentual.toString())
+                try {
+                    val percentual = display.text.toString().toDouble() / 100
+                    preview.text = percentual.toString()
+                } catch (e: Exception) {
+                    display.text = "Erro"
+                }
             } else {
                 preview.setText("Erro")
             }
@@ -218,13 +222,14 @@ class MainActivity : AppCompatActivity() {
             if (!display.text.toString().contains("!")) {
                 try {
                     val numero = display.text.toString().toInt()
+                    if (numero < 0) throw IllegalArgumentException("Fatorial de número negativo")
                     var fatorial = 1L
                     for (i in 1..numero) {
                         fatorial *= i
                     }
-                    preview.setText(fatorial.toString())
-                } catch (e: NumberFormatException) {
-                    display.setText("Erro")
+                    preview.text = fatorial.toString()
+                } catch (e: Exception) {
+                    display.text = "Erro"
                 }
             }
         }
@@ -284,14 +289,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnIgual.setOnClickListener {
-            temp2 = display.text.toString().toDouble()
-            when(operacao) {
-                1 -> resultado = temp1 + temp2
-                2 -> resultado = temp1 - temp2
-                3 -> resultado = temp1 * temp2
-                4 -> if (temp2 != 0.0) {resultado = temp1 / temp2}
+            try {
+                temp2 = display.text.toString().toDouble()
+                when (operacao) {
+                    1 -> resultado = temp1 + temp2
+                    2 -> resultado = temp1 - temp2
+                    3 -> resultado = temp1 * temp2
+                    4 -> if (temp2 != 0.0) {
+                        resultado = temp1 / temp2
+                    } else {
+                        throw ArithmeticException("Divisão por zero")
+                    }
+                }
+                display.text = resultado.toString()
+            } catch (e: Exception) {
+                display.text = "Erro"
             }
-            display.setText(resultado.toString())
             isResultado = true
         }
 
