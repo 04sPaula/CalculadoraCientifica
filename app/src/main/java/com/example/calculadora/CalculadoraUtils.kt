@@ -27,7 +27,54 @@ object CalculadoraUtils {
     fun calcularQuadrado(valor: Double): Double {
         return valor * valor
     }
-    
+
+    fun calcularSeno(valor: Double, emGraus: Boolean = true): Double {
+        val rad = if (emGraus) Math.toRadians(valor) else valor
+        return sin(rad)
+    }
+
+    fun calcularCosseno(valor: Double, emGraus: Boolean = true): Double {
+        val rad = if (emGraus) Math.toRadians(valor) else valor
+        return cos(rad)
+    }
+
+    fun calcularTangente(valor: Double, emGraus: Boolean = true): Double {
+        val rad = if (emGraus) Math.toRadians(valor) else valor
+        return tan(rad)
+    }
+
+    fun calcularInverso(valor: Double): Double {
+        if (valor == 0.0) throw ArithmeticException("Divisão por zero")
+        return 1 / valor
+    }
+
+    fun calcularRaizQuadrada(valor: Double): Double {
+        if (valor < 0) throw IllegalArgumentException("Raiz de número negativo")
+        return sqrt(valor)
+    }
+
+    fun calcularLogaritmoNatural(valor: Double): Double {
+        if (valor <= 0) throw IllegalArgumentException("Log de número <= 0")
+        return ln(valor)
+    }
+
+    fun calcularArcoSeno(valor: Double, emGraus: Boolean = true): Double {
+        if (valor !in -1.0..1.0) throw IllegalArgumentException("asin fora do domínio")
+        val resultado = asin(valor)
+        return if (emGraus) Math.toDegrees(resultado) else resultado
+    }
+
+    fun calcularArcoCosseno(valor: Double, emGraus: Boolean = true): Double {
+        if (valor !in -1.0..1.0) throw IllegalArgumentException("acos fora do domínio")
+        val resultado = acos(valor)
+        return if (emGraus) Math.toDegrees(resultado) else resultado
+    }
+
+    fun calcularArcoTangente(valor: Double, emGraus: Boolean = true): Double {
+        val resultado = atan(valor)
+        return if (emGraus) Math.toDegrees(resultado) else resultado
+    }
+
     fun calcularOperacaoBinaria(
         temp1: Double,
         temp2: Double,
@@ -39,6 +86,7 @@ object CalculadoraUtils {
                 2 -> temp1 - temp2
                 3 -> temp1 * temp2
                 4 -> if (temp2 != 0.0) temp1 / temp2 else throw ArithmeticException()
+                5 -> temp1.pow(temp2)
                 else -> throw IllegalArgumentException()
             }
             resultado.toString()

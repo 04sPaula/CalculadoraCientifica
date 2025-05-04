@@ -175,7 +175,7 @@
             android:layout_margin="1dp"
             android:layout_weight="1"
             android:backgroundTint="#D8D1FF"
-            android:text="√x"
+            android:text="√"
             android:textColor="#442178"
             android:textSize="14sp"
             app:cornerRadius="18dp" />
@@ -322,7 +322,7 @@
             android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
-            android:text="n!"
+            android:text="!"
             android:textSize="18sp"
             app:cornerRadius="18dp" />
 

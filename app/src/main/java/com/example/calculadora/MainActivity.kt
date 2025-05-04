@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         var resultado = 0.0
         var isResultado = false
         var operacao = 0
+        var emGraus = true
 
         val preview = findViewById<TextView>(R.id.preview)
         val display = findViewById<TextView>(R.id.display)
@@ -163,7 +164,13 @@ class MainActivity : AppCompatActivity() {
             operacao = 0
         }
 
-        btn1SobreX.setOnClickListener { }
+        btn1SobreX.setOnClickListener {
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularInverso(it)
+            }
+                preview.text = resultadoStr
+                display.text = "1/(${display.text})"
+        }
 
         btnAoQuadrado.setOnClickListener {
             if (!display.text.toString().contains("²")) {
@@ -175,23 +182,75 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        btnSin.setOnClickListener { }
+        btnSin.setOnClickListener {
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularSeno(it)
+            }
+            preview.text = resultadoStr
+            display.text = "sin(${display.text})"
+        }
 
-        btnCos.setOnClickListener { }
+        btnCos.setOnClickListener {
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularCosseno(it)
+            }
+            preview.text = resultadoStr
+            display.text = "sin(${display.text})"
+        }
 
-        btnTan.setOnClickListener { }
+        btnTan.setOnClickListener {
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularTangente(it)
+            }
+            preview.text = resultadoStr
+            display.text = "sin(${display.text})"
+        }
 
-        btnASin.setOnClickListener { }
+        btnRaizQuadrada.setOnClickListener {
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularRaizQuadrada(it)
+            }
+            preview.text = resultadoStr
+            display.text = "sin(${display.text})"
+        }
 
-        btnRaizQuadrada.setOnClickListener { }
+        btnASin.setOnClickListener {
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularArcoSeno(it, emGraus)
+            }
+            preview.text = resultadoStr
+            display.text = "asin(${display.text})"
+        }
 
-        btnACos.setOnClickListener { }
+        btnACos.setOnClickListener {
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularArcoCosseno(it, emGraus)
+            }
+            preview.text = resultadoStr
+            display.text = "acos(${display.text})"
+        }
 
-        btnATan.setOnClickListener { }
+        btnATan.setOnClickListener {
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularArcoTangente(it, emGraus)
+            }
+            preview.text = resultadoStr
+            display.text = "atan(${display.text})"
+        }
 
-        btnDegRad.setOnClickListener { }
+        btnDegRad.setOnClickListener {
+            emGraus = !emGraus
+            btnDegRad.text = if (emGraus) "Graus" else "Radianos"
+        }
 
-        btnPi.setOnClickListener { }
+        btnPi.setOnClickListener {
+            if(display.text.toString().equals("0") || isResultado) {
+                display.text = "π"
+            } else {
+                display.text = display.text.toString().plus("π")
+            }
+            isResultado = false
+        }
 
         btnAbreParenteses.setOnClickListener {
             if(!display.text.toString().equals("0")) {
@@ -213,12 +272,8 @@ class MainActivity : AppCompatActivity() {
             val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
                 CalculadoraUtils.calcularPorcentagem(it)
             }
-
-            if (resultadoStr == "Erro") {
-                preview.text = "Erro"
-            } else {
-                preview.text = resultadoStr
-            }
+            preview.text = resultadoStr
+            display.text = display.text.toString().plus("%")
         }
 
         btnFatorial.setOnClickListener {
@@ -227,23 +282,43 @@ class MainActivity : AppCompatActivity() {
                 val resultadoStr = CalculadoraUtils.calcularExpressao(input) {
                     CalculadoraUtils.calcularFatorial(it)
                 }
-
-                if (resultadoStr == "Erro") {
-                    display.text = "Erro"
-                } else {
-                    preview.text = resultadoStr
-                    display.text = input.plus("!")
-                }
+                preview.text = resultadoStr
+                display.text = input.plus("!")
             }
         }
 
-        btnIn.setOnClickListener { }
+        btnIn.setOnClickListener {
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularLogaritmoNatural(it)
+            }
+            preview.text = resultadoStr
+            display.text = "sin(${display.text})"
+        }
 
-        btnXElevadoY.setOnClickListener { }
+        btnXElevadoY.setOnClickListener {
+            temp1 = display.text.toString().toDoubleOrNull() ?: return@setOnClickListener
+            operacao = 5
+            display.text = "0"
+        }
 
-        btnMaisOuMenos.setOnClickListener { }
+        btnMaisOuMenos.setOnClickListener {
+            val valor = display.text.toString().toDoubleOrNull()
+            if (valor != null) {
+                val invertido = -valor
+                display.text = invertido.toString()
+                isResultado = false
+            }
+        }
 
-        btnEuler.setOnClickListener { }
+        btnEuler.setOnClickListener {
+            val valorE = Math.E.toString()
+            if (display.text.toString() == "0" || isResultado) {
+                display.text = valorE
+            } else {
+                display.text = display.text.toString().plus(valorE)
+            }
+            isResultado = false
+        }
 
         btnPonto.setOnClickListener {
             if (!display.text.toString().contains(".")) {
