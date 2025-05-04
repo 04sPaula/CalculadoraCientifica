@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.calculadora.CalculadoraUtils
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,87 +74,87 @@ class MainActivity : AppCompatActivity() {
 
         btn0.setOnClickListener {
             if(!display.text.toString().equals("0"))
-                display.setText(display.text.toString().plus("0"))
+                display.text = display.text.toString().plus("0")
             isResultado = false
         }
 
         btn1.setOnClickListener {
             if(display.text.toString().equals("0") || isResultado)
-                display.setText("1")
+                display.text = "1"
             else
-                display.setText(display.text.toString().plus("1"))
+                display.text = display.text.toString().plus("1")
             isResultado = false
         }
 
         btn2.setOnClickListener {
             if(display.text.toString().equals("0") || isResultado)
-                display.setText("2")
+                display.text = "2"
             else
-                display.setText(display.text.toString().plus("2"))
+                display.text = display.text.toString().plus("2")
             isResultado = false
         }
 
         btn3.setOnClickListener {
             if(display.text.toString().equals("0") || isResultado)
-                display.setText("3")
+                display.text = "3"
             else
-                display.setText(display.text.toString().plus("3"))
+                display.text = display.text.toString().plus("3")
             isResultado = false
         }
 
         btn4.setOnClickListener {
             if(display.text.toString().equals("0") || isResultado)
-                display.setText("4")
+                display.text = "4"
             else
-                display.setText(display.text.toString().plus("4"))
+                display.text = display.text.toString().plus("4")
             isResultado = false
         }
 
         btn5.setOnClickListener {
             if(display.text.toString().equals("0") || isResultado)
-                display.setText("5")
+                display.text = "5"
             else
-                display.setText(display.text.toString().plus("5"))
+                display.text = display.text.toString().plus("5")
             isResultado = false
         }
 
         btn6.setOnClickListener {
             if(display.text.toString().equals("0") || isResultado)
-                display.setText("6")
+                display.text = "6"
             else
-                display.setText(display.text.toString().plus("6"))
+                display.text = display.text.toString().plus("6")
             isResultado = false
         }
 
         btn7.setOnClickListener {
             if(display.text.toString().equals("0") || isResultado)
-                display.setText("7")
+                display.text = "7"
             else
-                display.setText(display.text.toString().plus("7"))
+                display.text = display.text.toString().plus("7")
             isResultado = false
         }
 
         btn8.setOnClickListener {
             if(display.text.toString().equals("0") || isResultado)
-                display.setText("8")
+                display.text = "8"
             else
-                display.setText(display.text.toString().plus("8"))
+                display.text = display.text.toString().plus("8")
 
             isResultado = false
         }
 
         btn9.setOnClickListener {
             if(display.text.toString().equals("0") || isResultado)
-                display.setText("9")
+                display.text = "9"
             else
-                display.setText(display.text.toString().plus("9"))
+                display.text = display.text.toString().plus("9")
 
             isResultado = false
         }
 
         btnCE.setOnClickListener {
-            display.setText("0")
-            preview.setText("0")
+            display.text = "0"
+            preview.text = "0"
             MR = 0.0
             temp1 = 0.0
             temp2 = 0.0
@@ -165,9 +167,11 @@ class MainActivity : AppCompatActivity() {
 
         btnAoQuadrado.setOnClickListener {
             if (!display.text.toString().contains("²")) {
-                resultado = display.text.toString().toDouble() * display.text.toString().toDouble()
-                display.setText(display.text.toString().plus("²"))
-                preview.setText(resultado.toString())
+                val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                    CalculadoraUtils.calcularQuadrado(it)
+                }
+                preview.text = resultadoStr
+                display.text = display.text.toString().plus("²")
             }
         }
 
@@ -191,45 +195,44 @@ class MainActivity : AppCompatActivity() {
 
         btnAbreParenteses.setOnClickListener {
             if(!display.text.toString().equals("0")) {
-                display.setText(display.text.toString().plus("("))
+                display.text = display.text.toString().plus("(")
             } else {
-                display.setText("(")
+                display.text = "("
             }
         }
 
         btnFechaParenteses.setOnClickListener {
             if(!display.text.toString().equals("0")) {
-                display.setText(display.text.toString().plus(")"))
+                display.text = display.text.toString().plus(")")
             } else {
-                display.setText(")")
+                display.text = ")"
             }
         }
 
         btnPorcentagem.setOnClickListener {
-            if (display.text.toString().toDoubleOrNull() != null) {
-                try {
-                    val percentual = display.text.toString().toDouble() / 100
-                    preview.text = percentual.toString()
-                } catch (e: Exception) {
-                    display.text = "Erro"
-                }
+            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
+                CalculadoraUtils.calcularPorcentagem(it)
+            }
+
+            if (resultadoStr == "Erro") {
+                preview.text = "Erro"
             } else {
-                preview.setText("Erro")
+                preview.text = resultadoStr
             }
         }
 
         btnFatorial.setOnClickListener {
             if (!display.text.toString().contains("!")) {
-                try {
-                    val numero = display.text.toString().toInt()
-                    if (numero < 0) throw IllegalArgumentException("Fatorial de número negativo")
-                    var fatorial = 1L
-                    for (i in 1..numero) {
-                        fatorial *= i
-                    }
-                    preview.text = fatorial.toString()
-                } catch (e: Exception) {
+                val input = display.text.toString()
+                val resultadoStr = CalculadoraUtils.calcularExpressao(input) {
+                    CalculadoraUtils.calcularFatorial(it)
+                }
+
+                if (resultadoStr == "Erro") {
                     display.text = "Erro"
+                } else {
+                    preview.text = resultadoStr
+                    display.text = input.plus("!")
                 }
             }
         }
@@ -244,67 +247,54 @@ class MainActivity : AppCompatActivity() {
 
         btnPonto.setOnClickListener {
             if (!display.text.toString().contains(".")) {
-                display.setText(display.text.toString().plus("."))
+                display.text = display.text.toString().plus(".")
             }
         }
 
         btnMRC.setOnClickListener {
-            display.setText(MR.toString())
+            display.text = MR.toString()
         }
 
         btnMMais.setOnClickListener {
             MR += display.text.toString().toDouble()
-            display.setText("0")
+            display.text = "0"
             isResultado = true
         }
 
         btnMMenos.setOnClickListener {
             MR -= display.text.toString().toDouble()
-            display.setText("0")
+            display.text = "0"
             isResultado = true
         }
 
         btnAdicionar.setOnClickListener {
             temp1 = display.text.toString().toDouble()
             operacao = 1
-            display.setText("0")
+            display.text = "0"
         }
 
         btnSubtrair.setOnClickListener {
             temp1 = display.text.toString().toDouble()
             operacao = 2
-            display.setText("0")
+            display.text = "0"
         }
 
         btnMultiplicar.setOnClickListener {
             temp1 = display.text.toString().toDouble()
             operacao = 3
-            display.setText("0")
+            display.text = "0"
         }
 
         btnDividir.setOnClickListener {
             temp1 = display.text.toString().toDouble()
             operacao = 4
-            display.setText("0")
+            display.text = "0"
         }
 
         btnIgual.setOnClickListener {
-            try {
-                temp2 = display.text.toString().toDouble()
-                when (operacao) {
-                    1 -> resultado = temp1 + temp2
-                    2 -> resultado = temp1 - temp2
-                    3 -> resultado = temp1 * temp2
-                    4 -> if (temp2 != 0.0) {
-                        resultado = temp1 / temp2
-                    } else {
-                        throw ArithmeticException("Divisão por zero")
-                    }
-                }
-                display.text = resultado.toString()
-            } catch (e: Exception) {
-                display.text = "Erro"
-            }
+            temp2 = display.text.toString().toDoubleOrNull() ?: return@setOnClickListener
+            val resultadoStr = CalculadoraUtils.calcularOperacaoBinaria(temp1, temp2, operacao)
+            display.text = resultadoStr
             isResultado = true
         }
 
