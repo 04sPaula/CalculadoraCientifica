@@ -376,13 +376,13 @@
         android:layout_weight="2">
 
         <Button
-            android:id="@+id/btnIn"
+            android:id="@+id/btnLn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="1dp"
             android:layout_weight="2"
             android:backgroundTint="#9A8FE7"
-            android:text="In"
+            android:text="ln"
             android:textSize="18sp"
             app:cornerRadius="18dp" />
 

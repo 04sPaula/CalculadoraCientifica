@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         val btnFechaParenteses = findViewById<Button>(R.id.btnFechaParenteses)
         val btnPorcentagem = findViewById<Button>(R.id.btnPorcentagem)
         val btnFatorial = findViewById<Button>(R.id.btnFatorial)
-        val btnIn = findViewById<Button>(R.id.btnIn)
+        val btnLn = findViewById<Button>(R.id.btnLn)
         val btnXElevadoY = findViewById<Button>(R.id.btnXElevadoY)
         val btnMaisOuMenos = findViewById<Button>(R.id.btnMaisOuMenos)
         val btnEuler = findViewById<Button>(R.id.btnEuler)
@@ -72,6 +72,30 @@ class MainActivity : AppCompatActivity() {
         val btnAdicionar = findViewById<Button>(R.id.btnAdicionar)
         val btnPonto = findViewById<Button>(R.id.btnPonto)
         val btnIgual = findViewById<Button>(R.id.btnIgual)
+
+        fun atualizarPreview() {
+            try {
+                val expressao = display.text.toString()
+                if (expressao.isNotEmpty() && expressao != "0") {
+                    val resultado = CalculadoraUtils.avaliarExpressao(expressao, emGraus)
+                    preview.text = "= $resultado"
+                } else {
+                    preview.text = ""
+                }
+            } catch (e: Exception) {
+                preview.text = "Erro"
+            }
+        }
+
+        fun adicionarOperador(operador: String) {
+            val textoAtual = display.text.toString()
+            if (textoAtual.isNotEmpty() && textoAtual.last() !in "+-×÷(") {
+                display.text = "$textoAtual$operador"
+            } else if (operador == "-" && (textoAtual.isEmpty() || textoAtual.last() == '(')) {
+                display.text = "$textoAtual$operador"
+            }
+            atualizarPreview()
+        }
 
         btn0.setOnClickListener {
             if(!display.text.toString().equals("0"))
@@ -165,77 +189,48 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn1SobreX.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularInverso(it)
-            }
-                preview.text = resultadoStr
-                display.text = "1/(${display.text})"
+            display.text = "1/(${display.text})"
+            atualizarPreview()
         }
 
         btnAoQuadrado.setOnClickListener {
-            if (!display.text.toString().contains("²")) {
-                val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                    CalculadoraUtils.calcularQuadrado(it)
-                }
-                preview.text = resultadoStr
-                display.text = display.text.toString().plus("²")
-            }
+            display.text = "(${display.text})²"
+            atualizarPreview()
         }
 
         btnSin.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularSeno(it)
-            }
-            preview.text = resultadoStr
             display.text = "sin(${display.text})"
+            atualizarPreview()
         }
 
         btnCos.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularCosseno(it)
-            }
-            preview.text = resultadoStr
-            display.text = "sin(${display.text})"
+            display.text = "cos(${display.text})"
+            atualizarPreview()
         }
 
         btnTan.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularTangente(it)
-            }
-            preview.text = resultadoStr
-            display.text = "sin(${display.text})"
+            display.text = "tan(${display.text})"
+            atualizarPreview()
         }
 
         btnRaizQuadrada.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularRaizQuadrada(it)
-            }
-            preview.text = resultadoStr
-            display.text = "sin(${display.text})"
+            display.text = "√(${display.text})"
+            atualizarPreview()
         }
 
         btnASin.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularArcoSeno(it, emGraus)
-            }
-            preview.text = resultadoStr
             display.text = "asin(${display.text})"
+            atualizarPreview()
         }
 
         btnACos.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularArcoCosseno(it, emGraus)
-            }
-            preview.text = resultadoStr
             display.text = "acos(${display.text})"
+            atualizarPreview()
         }
 
         btnATan.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularArcoTangente(it, emGraus)
-            }
-            preview.text = resultadoStr
             display.text = "atan(${display.text})"
+            atualizarPreview()
         }
 
         btnDegRad.setOnClickListener {
@@ -269,35 +264,29 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnPorcentagem.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularPorcentagem(it)
-            }
-            preview.text = resultadoStr
-            display.text = display.text.toString().plus("%")
+            display.text = "(${display.text})%"
+            atualizarPreview()
         }
 
         btnFatorial.setOnClickListener {
             if (!display.text.toString().contains("!")) {
-                val input = display.text.toString()
-                val resultadoStr = CalculadoraUtils.calcularExpressao(input) {
-                    CalculadoraUtils.calcularFatorial(it)
-                }
-                preview.text = resultadoStr
-                display.text = input.plus("!")
+                display.text = "fact(${display.text})"
+                atualizarPreview()
             }
         }
 
-        btnIn.setOnClickListener {
-            val resultadoStr = CalculadoraUtils.calcularExpressao(display.text.toString()) {
-                CalculadoraUtils.calcularLogaritmoNatural(it)
-            }
-            preview.text = resultadoStr
-            display.text = "sin(${display.text})"
+        btnLn.setOnClickListener {
+            display.text = "ln(${display.text})"
+            val resultado = CalculadoraUtils.avaliarExpressao(display.text.toString(), emGraus)
+            preview.text = resultado.toString()
         }
 
         btnXElevadoY.setOnClickListener {
-            temp1 = display.text.toString().toDoubleOrNull() ?: return@setOnClickListener
+            val valorStr = display.text.toString()
+            val valor = valorStr.toDoubleOrNull() ?: return@setOnClickListener
+            temp1 = valor
             operacao = 5
+            preview.text = "$valor ^"
             display.text = "0"
         }
 
@@ -343,35 +332,34 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnAdicionar.setOnClickListener {
-            temp1 = display.text.toString().toDouble()
-            operacao = 1
-            display.text = "0"
+            adicionarOperador("+")
         }
 
         btnSubtrair.setOnClickListener {
-            temp1 = display.text.toString().toDouble()
-            operacao = 2
-            display.text = "0"
+            adicionarOperador("-")
         }
 
         btnMultiplicar.setOnClickListener {
-            temp1 = display.text.toString().toDouble()
-            operacao = 3
-            display.text = "0"
+            adicionarOperador("×")
         }
 
         btnDividir.setOnClickListener {
-            temp1 = display.text.toString().toDouble()
-            operacao = 4
-            display.text = "0"
+            adicionarOperador("÷")
         }
 
         btnIgual.setOnClickListener {
-            temp2 = display.text.toString().toDoubleOrNull() ?: return@setOnClickListener
-            val resultadoStr = CalculadoraUtils.calcularOperacaoBinaria(temp1, temp2, operacao)
-            display.text = resultadoStr
-            isResultado = true
+            try {
+                val expressao = display.text.toString()
+                if (expressao.isNotEmpty() && expressao != "0") {
+                    val resultado = CalculadoraUtils.avaliarExpressao(expressao, emGraus)
+                    preview.text = "$expressao ="
+                    display.text = resultado.toString()
+                    isResultado = true
+                }
+            } catch (e: Exception) {
+                display.text = "Erro"
+                preview.text = ""
+            }
         }
-
     }
 }
