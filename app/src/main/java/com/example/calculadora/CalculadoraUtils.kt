@@ -1,51 +1,71 @@
 package com.example.calculadora
-import java.util.EmptyStackException
 import kotlin.math.*
-import java.util.Stack
+import net.objecthunter.exp4j.function.Function
 
 object CalculadoraUtils {
     private const val PI = Math.PI
     private const val E = Math.E
 
 fun avaliarExpressao(expressao: String, emGraus: Boolean = true): Double {
-    val expr = expressao
-        .replace("×", "*")
-        .replace("÷", "/")
-        .replace("π", Math.PI.toString())
-        .replace("e", Math.E.toString())
-        .replace("√", "sqrt")
-        .replace("²", "^2")
-        .replace("%", "*0.01")
+        val expr = expressao
+            .replace("×", "*")
+            .replace("÷", "/")
+            .replace("π", Math.PI.toString())
+            .replace("e", Math.E.toString())
+            .replace("√", "sqrt")
+            .replace("²", "^2")
+            .replace("%", "*0.01")
 
-    val expression = net.objecthunter.exp4j.ExpressionBuilder(expr)
-        .functions(
-            net.objecthunter.exp4j.function.Function("fact", 1) { n ->
-                if (n < 0 || n != n.toInt().toDouble()) throw IllegalArgumentException("Fatorial inválido")
-                (1..n.toInt()).fold(1.0) { acc, i -> acc * i }
-            },
-            net.objecthunter.exp4j.function.Function("sin", 1) { x ->
-                if (emGraus) Math.sin(Math.toRadians(x)) else Math.sin(x)
-            },
-            net.objecthunter.exp4j.function.Function("cos", 1) { x ->
-                if (emGraus) Math.cos(Math.toRadians(x)) else Math.cos(x)
-            },
-            net.objecthunter.exp4j.function.Function("tan", 1) { x ->
-                if (emGraus) Math.tan(Math.toRadians(x)) else Math.tan(x)
-            },
-            net.objecthunter.exp4j.function.Function("asin", 1) { x ->
-                if (emGraus) Math.toDegrees(Math.asin(x)) else Math.asin(x)
-            },
-            net.objecthunter.exp4j.function.Function("acos", 1) { x ->
-                if (emGraus) Math.toDegrees(Math.acos(x)) else Math.acos(x)
-            },
-            net.objecthunter.exp4j.function.Function("atan", 1) { x ->
-                if (emGraus) Math.toDegrees(Math.atan(x)) else Math.atan(x)
-            }
-        )
-        .build()
+        val expression = net.objecthunter.exp4j.ExpressionBuilder(expr)
+            .functions(
+                object : Function("fact", 1) {
+                    override fun apply(vararg args: Double): Double {
+                        val n = args[0]
+                        if (n < 0 || n != n.toInt().toDouble()) throw IllegalArgumentException("Fatorial inválido")
+                        return (1..n.toInt()).fold(1.0) { acc, i -> acc * i }
+                    }
+                },
+                object : Function("sin", 1) {
+                    override fun apply(vararg args: Double): Double {
+                        val x = args[0]
+                        return if (emGraus) Math.sin(Math.toRadians(x)) else Math.sin(x)
+                    }
+                },
+                object : Function("cos", 1) {
+                    override fun apply(vararg args: Double): Double {
+                        val x = args[0]
+                        return if (emGraus) Math.cos(Math.toRadians(x)) else Math.cos(x)
+                    }
+                },
+                object : Function("tan", 1) {
+                    override fun apply(vararg args: Double): Double {
+                        val x = args[0]
+                        return if (emGraus) Math.tan(Math.toRadians(x)) else Math.tan(x)
+                    }
+                },
+                object : Function("asin", 1) {
+                    override fun apply(vararg args: Double): Double {
+                        val x = args[0]
+                        return if (emGraus) Math.toDegrees(Math.asin(x)) else Math.asin(x)
+                    }
+                },
+                object : Function("acos", 1) {
+                    override fun apply(vararg args: Double): Double {
+                        val x = args[0]
+                        return if (emGraus) Math.toDegrees(Math.acos(x)) else Math.acos(x)
+                    }
+                },
+                object : Function("atan", 1) {
+                    override fun apply(vararg args: Double): Double {
+                        val x = args[0]
+                        return if (emGraus) Math.toDegrees(Math.atan(x)) else Math.atan(x)
+                    }
+                }
+            )
+            .build()
 
-    return expression.evaluate()
-}
+        return expression.evaluate()
+    }
 
     private fun String.isNumber(): Boolean = matches("-?\\d+(\\.\\d+)?".toRegex())
     private fun String.isOperator(): Boolean = matches("[+\\-*/^]".toRegex())
