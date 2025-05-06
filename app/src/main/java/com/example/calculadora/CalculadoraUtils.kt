@@ -7,110 +7,45 @@ object CalculadoraUtils {
     private const val PI = Math.PI
     private const val E = Math.E
 
-    fun avaliarExpressao(expressao: String, emGraus: Boolean = true): Double {
-        var expr = expressao
-            .replace(" ", "")
-            .replace("π", "PI")
-            .replace("e", "E")
-            .replace("²", "^2")
-            .replace("√", "sqrt")
-            .replace(Regex("(\\d+(\\.\\d+)?)%")) { "percent(${it.groupValues[1]})" }
-            .replace(Regex("(\\d+)!")) { "fact(${it.groupValues[1]})" }
-            .replace(Regex("(\\d+)%")) { "(${"%.2f".format(it.groupValues[1].toDouble() / 100)})" }
+fun avaliarExpressao(expressao: String, emGraus: Boolean = true): Double {
+    val expr = expressao
+        .replace("×", "*")
+        .replace("÷", "/")
+        .replace("π", Math.PI.toString())
+        .replace("e", Math.E.toString())
+        .replace("√", "sqrt")
+        .replace("²", "^2")
+        .replace("%", "*0.01")
 
-        return avaliarNotacaoPolonesaInversa(
-            converterParaNotacaoPolonesaInversa(expr),
-            emGraus
+    val expression = net.objecthunter.exp4j.ExpressionBuilder(expr)
+        .functions(
+            net.objecthunter.exp4j.function.Function("fact", 1) { n ->
+                if (n < 0 || n != n.toInt().toDouble()) throw IllegalArgumentException("Fatorial inválido")
+                (1..n.toInt()).fold(1.0) { acc, i -> acc * i }
+            },
+            net.objecthunter.exp4j.function.Function("sin", 1) { x ->
+                if (emGraus) Math.sin(Math.toRadians(x)) else Math.sin(x)
+            },
+            net.objecthunter.exp4j.function.Function("cos", 1) { x ->
+                if (emGraus) Math.cos(Math.toRadians(x)) else Math.cos(x)
+            },
+            net.objecthunter.exp4j.function.Function("tan", 1) { x ->
+                if (emGraus) Math.tan(Math.toRadians(x)) else Math.tan(x)
+            },
+            net.objecthunter.exp4j.function.Function("asin", 1) { x ->
+                if (emGraus) Math.toDegrees(Math.asin(x)) else Math.asin(x)
+            },
+            net.objecthunter.exp4j.function.Function("acos", 1) { x ->
+                if (emGraus) Math.toDegrees(Math.acos(x)) else Math.acos(x)
+            },
+            net.objecthunter.exp4j.function.Function("atan", 1) { x ->
+                if (emGraus) Math.toDegrees(Math.atan(x)) else Math.atan(x)
+            }
         )
-    }
+        .build()
 
-    private fun converterParaNotacaoPolonesaInversa(expressao: String): List<String> {
-        val output = mutableListOf<String>()
-        val operadores = Stack<String>()
-        var i = 0
-
-        while (i < expressao.length) {
-            when (val c = expressao[i]) {
-                in '0'..'9', '.' -> {
-                    val num = StringBuilder()
-                    while (i < expressao.length &&
-                        (expressao[i].isDigit() || expressao[i] == '.')) {
-                        num.append(expressao[i++])
-                    }
-                    output.add(num.toString())
-                }
-                '(', '[' -> {
-                    operadores.push(c.toString())
-                    i++
-                }
-                ')', ']' -> {
-                    while (operadores.isNotEmpty() && operadores.peek() != "(" && operadores.peek() != "[") {
-                        output.add(operadores.pop())
-                    }
-                    operadores.pop()
-                    i++
-                }
-                '+', '-', '*', '/', '^' -> {
-                    while (operadores.isNotEmpty() &&
-                        precedencia(operadores.peek()) >= precedencia(c.toString())) {
-                        output.add(operadores.pop())
-                    }
-                    operadores.push(c.toString())
-                    i++
-                }
-                else -> {
-                    if (c.isLetter()) {
-                        val token = StringBuilder()
-                        while (i < expressao.length && expressao[i].isLetter()) {
-                            token.append(expressao[i++])
-                        }
-                        when (token.toString()) {
-                            "PI", "E" -> output.add(token.toString())
-                            else -> operadores.push(token.toString())
-                        }
-                    } else {
-                        i++
-                    }
-                }
-            }
-        }
-
-        while (operadores.isNotEmpty()) {
-            output.add(operadores.pop())
-        }
-
-        return output
-    }
-
-    private fun avaliarNotacaoPolonesaInversa(tokens: List<String>, emGraus: Boolean): Double {
-        val pilha = Stack<Double>()
-        if (tokens.isEmpty()) throw IllegalArgumentException("Expressão vazia")
-        if (tokens.size == 1 && !tokens[0].isNumber() && !tokens[0].isConstant())
-            throw IllegalArgumentException("Expressão inválida: ${tokens[0]}")
-
-        for (token in tokens) {
-            when {
-                token.isNumber() -> pilha.push(token.toDouble())
-                token.isOperator() -> {
-                    val b = pilha.pop()
-                    val a = try { pilha.pop() } catch (e: EmptyStackException) {
-                        throw IllegalStateException("Operador '$token' com operandos insuficientes")
-                    }
-                    pilha.push(avaliarOperadorBinario(a, b, token))
-                }
-                token.isFunction() -> {
-                    val x = pilha.pop()
-                    pilha.push(avaliarFuncao(token, x, emGraus))
-                }
-                token.isConstant() -> {
-                    pilha.push(avaliarConstante(token))
-                }
-            }
-        }
-
-        if (pilha.isEmpty()) throw IllegalStateException("Erro de sintaxe: operandos insuficientes")
-        return pilha.pop()
-    }
+    return expression.evaluate()
+}
 
     private fun String.isNumber(): Boolean = matches("-?\\d+(\\.\\d+)?".toRegex())
     private fun String.isOperator(): Boolean = matches("[+\\-*/^]".toRegex())
