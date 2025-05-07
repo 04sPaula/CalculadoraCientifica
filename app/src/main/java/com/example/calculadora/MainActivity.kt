@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     preview.text = ""
                 }
             } catch (e: Exception) {
-                preview.text = "Erro"
+                preview.text = ""
             }
         }
 
@@ -101,6 +101,7 @@ class MainActivity : AppCompatActivity() {
             if(!display.text.toString().equals("0"))
                 display.text = display.text.toString().plus("0")
             isResultado = false
+            atualizarPreview()
         }
 
         btn1.setOnClickListener {
@@ -109,6 +110,7 @@ class MainActivity : AppCompatActivity() {
             else
                 display.text = display.text.toString().plus("1")
             isResultado = false
+            atualizarPreview()
         }
 
         btn2.setOnClickListener {
@@ -117,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             else
                 display.text = display.text.toString().plus("2")
             isResultado = false
+            atualizarPreview()
         }
 
         btn3.setOnClickListener {
@@ -125,6 +128,7 @@ class MainActivity : AppCompatActivity() {
             else
                 display.text = display.text.toString().plus("3")
             isResultado = false
+            atualizarPreview()
         }
 
         btn4.setOnClickListener {
@@ -133,6 +137,7 @@ class MainActivity : AppCompatActivity() {
             else
                 display.text = display.text.toString().plus("4")
             isResultado = false
+            atualizarPreview()
         }
 
         btn5.setOnClickListener {
@@ -141,6 +146,7 @@ class MainActivity : AppCompatActivity() {
             else
                 display.text = display.text.toString().plus("5")
             isResultado = false
+            atualizarPreview()
         }
 
         btn6.setOnClickListener {
@@ -149,6 +155,7 @@ class MainActivity : AppCompatActivity() {
             else
                 display.text = display.text.toString().plus("6")
             isResultado = false
+            atualizarPreview()
         }
 
         btn7.setOnClickListener {
@@ -157,6 +164,7 @@ class MainActivity : AppCompatActivity() {
             else
                 display.text = display.text.toString().plus("7")
             isResultado = false
+            atualizarPreview()
         }
 
         btn8.setOnClickListener {
@@ -166,6 +174,7 @@ class MainActivity : AppCompatActivity() {
                 display.text = display.text.toString().plus("8")
 
             isResultado = false
+            atualizarPreview()
         }
 
         btn9.setOnClickListener {
@@ -175,6 +184,7 @@ class MainActivity : AppCompatActivity() {
                 display.text = display.text.toString().plus("9")
 
             isResultado = false
+            atualizarPreview()
         }
 
         btnCE.setOnClickListener {
