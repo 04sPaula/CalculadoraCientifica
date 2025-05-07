@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.calculadora.CalculadoraUtils
+import com.example.calculadora.CalculadoraUtils.degRad
 
 
 class MainActivity : AppCompatActivity() {
@@ -196,6 +196,8 @@ class MainActivity : AppCompatActivity() {
             resultado = 0.0
             isResultado = false
             operacao = 0
+            emGraus = true
+            btnDegRad.text = "degRad"
         }
 
         btn1SobreX.setOnClickListener {
@@ -246,6 +248,17 @@ class MainActivity : AppCompatActivity() {
         btnDegRad.setOnClickListener {
             emGraus = !emGraus
             btnDegRad.text = if (emGraus) "Graus" else "Radianos"
+
+            val expressao = display.text.toString()
+            if (expressao.isNotEmpty() && expressao != "0") {
+                try {
+                    val valorConvertido = degRad(expressao.toDouble(), emGraus)
+                    display.text = valorConvertido.toString()
+                    atualizarPreview()
+                } catch (e: Exception) {
+                    preview.text = "Erro na conversão"
+                }
+            }
         }
 
         btnPi.setOnClickListener {
