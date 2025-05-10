@@ -58,6 +58,13 @@ fun avaliarExpressao(expressao: String, emGraus: Boolean = true): Double {
                     val x = args[0]
                     return if (emGraus) Math.toDegrees(Math.atan(x)) else Math.atan(x)
                 }
+            },
+            object : Function("ln", 1) {
+                override fun apply(vararg args: Double): Double {
+                    val x = args[0]
+                    if (x <= 0.0) throw IllegalArgumentException("ln indefinido para x ≤ 0")
+                    return Math.log(x)
+                }
             }
         )
         .build()
@@ -81,9 +88,9 @@ fun avaliarExpressao(expressao: String, emGraus: Boolean = true): Double {
 
     fun degRad(valor: Double, emGraus: Boolean): Double {
         return if (emGraus) {
-            Math.toDegrees(valor)  // Converte de radianos para graus
+            Math.toDegrees(valor)
         } else {
-            Math.toRadians(valor)  // Converte de graus para radianos
+            Math.toRadians(valor)
         }
     }
 

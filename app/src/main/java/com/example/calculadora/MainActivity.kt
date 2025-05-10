@@ -21,11 +21,8 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         var MR = 0.0
-        var temp1 = 0.0
-        var temp2 = 0.0
         var resultado = 0.0
         var isResultado = false
-        var operacao = 0
         var emGraus = true
 
         val preview = findViewById<TextView>(R.id.preview)
@@ -191,11 +188,8 @@ class MainActivity : AppCompatActivity() {
             display.text = "0"
             preview.text = "0"
             MR = 0.0
-            temp1 = 0.0
-            temp2 = 0.0
             resultado = 0.0
             isResultado = false
-            operacao = 0
             emGraus = true
             btnDegRad.text = "degRad"
         }
@@ -287,8 +281,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnPorcentagem.setOnClickListener {
-            display.text = "(${display.text})%"
-            atualizarPreview()
+            val texto = display.text.toString()
+            if (texto.isNotEmpty()) {
+                display.text = "$texto%"
+                atualizarPreview()
+            }
         }
 
         btnFatorial.setOnClickListener {
@@ -300,17 +297,14 @@ class MainActivity : AppCompatActivity() {
 
         btnLn.setOnClickListener {
             display.text = "ln(${display.text})"
-            val resultado = CalculadoraUtils.avaliarExpressao(display.text.toString(), emGraus)
-            preview.text = resultado.toString()
+            atualizarPreview()
         }
 
         btnXElevadoY.setOnClickListener {
-            val valorStr = display.text.toString()
-            val valor = valorStr.toDoubleOrNull() ?: return@setOnClickListener
-            temp1 = valor
-            operacao = 5
-            preview.text = "$valor ^"
-            display.text = "0"
+            if (display.text.toString().isNotEmpty()) {
+                display.text = "(${display.text})^"
+                isResultado = false
+            }
         }
 
         btnMaisOuMenos.setOnClickListener {
