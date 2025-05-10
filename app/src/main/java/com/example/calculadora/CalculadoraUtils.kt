@@ -44,12 +44,16 @@ fun avaliarExpressao(expressao: String, emGraus: Boolean = true): Double {
             object : Function("asin", 1) {
                 override fun apply(vararg args: Double): Double {
                     val x = args[0]
+                    if (x < -1.0 || x > 1.0) throw IllegalArgumentException("asin indefinido" +
+                            "para x ∉ [-1, 1]")
                     return if (emGraus) Math.toDegrees(Math.asin(x)) else Math.asin(x)
                 }
             },
             object : Function("acos", 1) {
                 override fun apply(vararg args: Double): Double {
                     val x = args[0]
+                    if (x < -1.0 || x > 1.0) throw IllegalArgumentException("acos indefinido" +
+                            "para x ∉ [-1, 1]")
                     return if (emGraus) Math.toDegrees(Math.acos(x)) else Math.acos(x)
                 }
             },
